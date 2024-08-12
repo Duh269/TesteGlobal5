@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+
+<h1>Movimentar Estoque</h1>
+
+@Html.Partial("Form")
+
+
+<div id="divgrid">
+
+</div>
+
+@Html.Partial("~/Views/Shared/ModalConfirm.cshtml")
+
+<script>
+    window.load = LoadPage();
+
+    function LoadPage() {
+        Grid();
+    }
+
+    function Grid() {
+        $.ajax({
+            url: "/Estoque/GridResult", success: function (data) {
+                $("#divgrid").html(data)
+            }
+        });
+    }
+
+
+    $("#btnSalvar").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "/Estoque/Salvar", data: $("#formEstoque").serialize(), success: function (data) {
+                console.log(data)
+                if (data.result == "success") {
+                    Grid();
+                } else {
+
+                }
+            }
+        });
+    })
+
+    function Excluir(id) {
+        localStorage.setItem("url","/Estoque/Excluir")
+        localStorage.setItem("id", id);
+        $("#modalConfirm").modal('show');
+    }
+</script>
+

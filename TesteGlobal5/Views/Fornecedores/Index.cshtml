@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+
+<h1>Cadastrar Fornecedor</h1>
+
+
+@Html.Partial("Form")
+
+<div id="divgrid" class="col-12 col-md-12 col-lg-12">
+
+</div>
+
+@Html.Partial("~/Views/Shared/ModalConfirm.cshtml")
+
+<script>
+
+    window.load = LoadPage();
+
+    function LoadPage() {
+
+        Grid();
+
+    }
+
+    function Grid() {
+        console.log("get grid")
+        $.ajax({
+            url: "/Fornecedores/GridResult", success: function (result) {
+                $("#divgrid").html(result);
+            }
+        });
+    }
+
+    $("#btnSalvar").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "/Fornecedores/Salvar", data: $("#formedit").serialize(), success: function (data) {
+                console.log(data)
+                if (data.result == "success") {
+                    Grid();
+                } else {
+
+                }
+            }
+        });
+    })
+
+    function Excluir(id) {
+        localStorage.setItem("url", "/Fornecedores/Excluir")
+        localStorage.setItem("id", id);
+        $("#modalConfirm").modal('show');
+    }
+
+
+</script>

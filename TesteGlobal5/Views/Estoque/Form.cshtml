@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "About";
+}
+
+<form id="formEstoque">
+    <input type="hidden" id="id" name="id" value="0"  />
+    <div class="col-3">
+        <div class="row">
+            <label>Data</label>
+            <input type="date" id="data_entrada" name="data_entrada" />
+        </div>
+
+    </div>
+    <div class="row">
+        <label>Fornecedor</label>
+        @Html.DropDownList("fornecedor_id.id", (SelectList)ViewBag.fornecedor)
+    </div>
+    <div class="row">
+        <label>Material</label>
+        @Html.DropDownList("material_id.id", (SelectList)ViewBag.material)
+    </div>
+    <div class="col-3">
+        <div class="row">
+            <label>Quantidade</label>
+            <input type="text" name="quantidade" id="quantidade" />
+        </div>
+
+    </div>
+    <div class="col-3">
+        <div class="row">
+            <label>Valor</label>
+            <input type="text" name="valor" id="valor" />
+        </div>
+
+    </div>
+    <div class="col-3">
+        <div class="row">
+            <label>Tipo Operação</label>
+            <select name="tipo_entrada">
+                <option value="ENTRADA">ENTRADA</option>
+                <option value="SAIDA">SAIDA</option>
+            </select>
+        </div>
+
+    </div>
+</form>
+
+
+
+<div class="col-12">
+    <button type="button" id="btnSalvar" class="btn btn-primary">Salvar</button>
+    <button type="button" onclick="ClearForm()" class="btn">Limpar</button>
+</div>
+
+
+<script>
+
+    function ClearForm() {
+        $("#formedit").find("#quantidade").val('');
+        $("#formedit").find("#valor").val('');
+        $("#formedit").find("input[type='text']").val('');
+        $("#formedit").find("#id").val('0');
+    }
+
+</script>

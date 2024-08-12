@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+<form id="formedit" >
+    <input id="id" name="id" hidden value="0" >
+    <div class="row">
+        <label>CNPJ</label>
+        <input type="text" name="cnpj" id="cnpj" />
+    </div>
+    <div class="row">
+        <label>Razão Social</label>
+        <input type="text" name="razaosocial" id="razaosocial" />
+    </div>
+    
+</form>
+<div class="col-12">
+    <button type="button" id="btnSalvar" class="btn btn-primary">Salvar</button>
+    <button type="button" onclick="ClearForm()" class="btn">Limpar</button>
+</div>
+
+<script>
+
+    function ClearForm() {
+        $("#formedit").find("#id").val('0');
+        $("#formedit").find("input[type='text']").val('');
+    }
+
+  
+
+
+</script>

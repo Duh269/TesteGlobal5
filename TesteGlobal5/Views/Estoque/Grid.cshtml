@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+<div>
+    @{
+        WebGrid grid = new WebGrid(Model);
+        @grid.GetHtml(
+             tableStyle: "grid table",
+             fillEmptyRows: false,
+             headerStyle: "gvHeading",
+             alternatingRowStyle: "gvAlternateRow",
+             rowStyle: "gvRow",
+             footerStyle: "gvFooter",
+             mode: WebGridPagerModes.All,
+             firstText: "<< Primeiro",
+             previousText: "< Anterior",
+             nextText: "Próximo >",
+             lastText: "Último >>",
+             columns: new[] {
+             grid.Column("data_entrada",header: "Data"),
+             grid.Column("fornecedor_id.razaosocial",header: "Fornecedor"),
+             grid.Column("material_id.nome", header: "Material",  style: "text-align-center"),
+             grid.Column("quantidade", header: "Quantidade",  style: "text-align-center"),
+             grid.Column("valor", header: "Valor Total",  style: "text-align-center"),
+             grid.Column("tipo_entrada", header: "Tipo Operação",  style: "text-align-center"),
+             grid.Column("", header: "", format: @<text> <a href="#" onclick="Editar('@item.id')">Editar</a> </text>),
+             grid.Column("", header: "", format: @<text> <a href="#" onclick="Excluir('@item.id')">Excluir</a> </text>)
+})
+    }
+</div>
+
+<script>
+
+    function GetData(id) {
+            @foreach (TesteGlobal5.Models.CadEstoqueDto item in Model)
+{
+    <text>
+if (@item.id == id) {
+      $("#id").val('@item.id')
+    $("#valor").val('@Convert.ToDecimal(item.valor).ToString("N2")')
+    $("#tipo_entrada").val('@item.tipo_entrada.Trim()').change();
+    $("#data_entrada").val('@item.data_entrada.Value.ToString("yyyy-MM-dd")');
+    $("#quantidade").val('@item.quantidade');
+    $("#material_id_id").val('@item.material_id.id');
+    $("#fornecedor_id_id").val('@item.fornecedor_id.id');
+    }
+    </text>
+}
+    }
+
+    function Editar(id) {
+        GetData(id)
+    }
+
+</script>

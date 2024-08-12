@@ -1,0 +1,44 @@
+﻿
+@{
+    WebGrid grid = new WebGrid(Model);
+    @grid.GetHtml(
+         tableStyle: "grid table",
+         fillEmptyRows: false,
+         headerStyle: "gvHeading",
+         alternatingRowStyle: "gvAlternateRow",
+         rowStyle: "gvRow",
+         footerStyle: "gvFooter",
+         mode: WebGridPagerModes.All,
+         firstText: "<< Primeiro",
+         previousText: "< Anterior",
+         nextText: "Próximo >",
+         lastText: "Último >>",
+         columns: new[] {
+         grid.Column("Id",header: "ID"),
+         grid.Column("cnpj",header: "cnpj"),
+         grid.Column("razaosocial", header: "Razão Social",  style: "text-align-center"),
+         grid.Column("", header: "",  style: "text-align-center", format:@<text> <a href="#" onclick="Editar('@item.id')" > Editar </a> </text>),
+        grid.Column("", header: "",  style: "text-align-center", format:@<text> <a href="#" onclick="Excluir('@item.id')" > Excluir </a> </text>)
+})
+}
+
+<script>
+
+    function GetData(id) {
+            @foreach (TesteGlobal5.Models.CadFornecedorDto item in Model)
+{
+    <text>
+if (@item.id == id) {
+      $("#id").val('@item.id')
+    $("#cnpj").val('@item.cnpj')
+    $("#razaosocial").val('@item.razaosocial');
+    }
+    </text>
+}
+    }
+
+    function Editar(id) {
+        GetData(id)
+    }
+
+</script>

@@ -1,0 +1,47 @@
+﻿<div id="modalConfirm" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Excluir Registro</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="msgInfo" >Tem certeza que deseja excluir esse registro?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnConfirmar" onclick="Confirmar()" class="btn btn-primary">Confirnar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="ModalClose()" >Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+   function ModalClose(){
+        $("#modalConfirm").modal('hide');
+    }
+
+    function Confirmar() {
+        var get_url = localStorage.getItem("url");
+        var get_id = localStorage.getItem("id");
+        console.log("id" + get_id)
+        $.ajax({
+            type: "POST",
+            url: get_url, data : { id: get_id }, success: function (data) {
+                console.log(data)
+                if (data.result == "success") {
+                    Grid();
+                    ModalClose();
+                } else {
+                    $("#btnConfirmar").css('display','none')
+                    $("#msgInfo").html('Ocorreu um erro! Contacte o adm.');
+                }
+            }
+        });
+    }
+
+</script>
+
